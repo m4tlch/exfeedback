@@ -1,0 +1,7 @@
+<?php
+/**
+ * Implements hook_uninstall().
+ */
+function exfeedback_uninstall() {
+  variable_del('exfeedback_admin_settings');
+}

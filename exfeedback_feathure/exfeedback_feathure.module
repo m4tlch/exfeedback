@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the exFeedback feature.
+ */
+
+include_once 'exfeedback_feathure.features.inc';

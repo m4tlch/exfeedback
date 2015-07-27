@@ -1,0 +1,289 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  exfeedback.admin.inc: n/a
+#  exfeedback.module: n/a
+#  exfeedback.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-07-27 16:07+0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: exfeedback.admin.inc:12
+msgid "Feedback form settings"
+msgstr "Настройки Feedback формы"
+
+#: exfeedback.admin.inc:21
+msgid "Ajax url (String)"
+msgstr "Ajax url (Строка)"
+
+#: exfeedback.admin.inc:26
+msgid "The URL where the plugin will post the screenshot and additional informations. (JSON datatype)"
+msgstr "URL, накоторый плагин отправит скриншот и дополнительную информацию. (тип данных JSON)"
+
+#: exfeedback.admin.inc:31
+msgid "Url for html2canvas.js (String)"
+msgstr "Url html2canvas.js (Строка)"
+
+#: exfeedback.admin.inc:36
+msgid "The URL where the plugin can download html2canvas.js from."
+msgstr "Url загрузки html2canvas.js (Строка)"
+
+#: exfeedback.admin.inc:41
+msgid "Init button text (String / HTML)"
+msgstr "Текст на кнопке открытия формы (Строка / HTML)"
+
+#: exfeedback.admin.inc:45
+msgid "The default button text."
+msgstr "Текст на кнопке открытия формы (Строка / HTML)"
+
+#: exfeedback.admin.inc:50
+msgid "Send Browser info"
+msgstr "Отправлять информацию о браузере пользователя"
+
+#: exfeedback.admin.inc:52
+msgid "Whether you want your client to post their browser information (such as useragent, plugins used, etc.)"
+msgstr "Отправить на сервер информацию о браузере пользователя(такую как useragent, используемые браузером плагины, и т.д.)"
+
+#: exfeedback.admin.inc:57
+msgid "Send page HTML"
+msgstr "Сохранять html-код страницы"
+
+#: exfeedback.admin.inc:59
+msgid "Whether you want your client to post the page's HTML structure."
+msgstr "Отправить на сервер html-код страницы с которой пользователь отправил сообщение"
+
+#: exfeedback.admin.inc:64
+msgid "Send page URL"
+msgstr "Сохранять url страницы"
+
+#: exfeedback.admin.inc:66
+msgid "Whether you want your client to post the URL of the page."
+msgstr "Отправить на сервер url страницы с которой пользователь отправил сообщение"
+
+#: exfeedback.admin.inc:70
+msgid "Proxy (String)"
+msgstr "Proxy (строка)"
+
+#: exfeedback.admin.inc:74
+msgid "Url to the proxy which is to be used for loading cross-origin images. If left empty, cross-origin images won't be loaded."
+msgstr ""
+
+#: exfeedback.admin.inc:79
+msgid "Letter rendering"
+msgstr ""
+
+#: exfeedback.admin.inc:81
+msgid "Whether to render each letter seperately. Necessary if letter-spacing is used."
+msgstr ""
+
+#: exfeedback.admin.inc:85
+msgid "Stroke color (String / HEX color)"
+msgstr "Цвет рамки (строка / HEX цвет)"
+
+#: exfeedback.admin.inc:89
+msgid "The color of the highlight border. You can use values either like 'black', 'red', etc. or HEX codes like '#adadad'."
+msgstr "Цвет рамки подсветки выделеной области. Вы можете использовать как названия цветов: 'black', 'red', и т.д. или HEX код цвета, например '#sdsdsd'. "
+
+#: exfeedback.admin.inc:93
+msgid "Shadow color (String / HEX color)"
+msgstr "Тень рамки (строка / HEX цвет)"
+
+#: exfeedback.admin.inc:97
+msgid "The color of the shadow."
+msgstr "Цвет тени выделеной области. "
+
+#: exfeedback.admin.inc:102
+msgid "Shadow offset X (Integer)"
+msgstr "Сдвиг тени по вертикали (целое число)"
+
+#: exfeedback.admin.inc:106
+msgid "Sets the horizontal distance of the shadow from the shape."
+msgstr "Устанавливает сдвиг тени выделенной области по вертикали"
+
+#: exfeedback.admin.inc:110
+msgid "Shadow offset Y (Integer)"
+msgstr "Сдвиг тени по горизонтали (целое число)"
+
+#: exfeedback.admin.inc:114
+msgid "Sets the vertical distance of the shadow from the shape."
+msgstr "Устанавливает сдвиг тени выделенной области по вертикали"
+
+#: exfeedback.admin.inc:118
+msgid "Shadow blur (Integer)"
+msgstr "Размер тени (число)"
+
+#: exfeedback.admin.inc:122
+msgid "The blur level for the shadow."
+msgstr "Устанавливает размер тени выделенной области"
+
+#: exfeedback.admin.inc:126
+msgid "bevel"
+msgstr "скос"
+
+#: exfeedback.admin.inc:127
+msgid "round"
+msgstr "закругленный"
+
+#: exfeedback.admin.inc:128
+msgid "miter"
+msgstr "угол"
+
+#: exfeedback.admin.inc:133
+msgid "Canvas lineJoin"
+msgstr ""
+
+#: exfeedback.admin.inc:136
+msgid "Sets the type of corner created, when two lines meet."
+msgstr "Устанавливает тип соединения линий"
+
+#: exfeedback.admin.inc:141
+msgid "Canvas  lineWidth (Integer)"
+msgstr "Canvas  lineWidth (целое число)"
+
+#: exfeedback.admin.inc:145
+msgid "Sets border of the highlighted area."
+msgstr "Толщина рамки подсветки выделенной области"
+
+#: exfeedback.admin.inc:149
+msgid "Buttons HTML class (String)"
+msgstr "HTML-класс кнопок (строка)"
+
+#: exfeedback.admin.inc:153
+msgid "Define a custom button instead of the default button that appears on the lower right corner."
+msgstr ""
+
+#: exfeedback.admin.inc:157
+msgid "Dialog modal"
+msgstr "Диалог в модальном окне"
+
+#: exfeedback.admin.inc:159
+msgid "Sets whether the next modal for entering description should appear or not"
+msgstr "Выводить диалог отправки сообщения в модальном окне"
+
+#: exfeedback.admin.inc:163
+msgid "Dialog Draggable"
+msgstr "Диалог передвигаем"
+
+#: exfeedback.admin.inc:165
+msgid "Sets whether the user will be able to drag the feedback options modal or not"
+msgstr "Предоставляет возможность пользователю передвигать форму отправки сообщения по странице."
+
+#: exfeedback.admin.inc:170
+msgid "screenshotStroke"
+msgstr "Рамка на скриншоте"
+
+#: exfeedback.admin.inc:172
+msgid "Changing to false will remove the borders from the highlighted areas when taking the screenshot."
+msgstr "Не отображать рамки выделенных областей на скриншоте"
+
+#: exfeedback.admin.inc:176
+msgid "Highlight element on mouse over"
+msgstr "Подсветка html-элементов"
+
+#: exfeedback.admin.inc:178
+msgid "By default when you move your cursor over an element the plugin will temporarily highlight it until you move your cursor out of that area. I'm not exactly sure whether it's a good thing or not, but Google has it, so yeah."
+msgstr "Подсвечивать html-элементы рамкой, при перемещении над ними мыши"
+
+#: exfeedback.admin.inc:182
+msgid "initialBox"
+msgstr ""
+
+#: exfeedback.admin.inc:184
+msgid "By Setting this true the user will have to describe the bug/idea before being able to highlight the area."
+msgstr ""
+
+
+#: exfeedback.admin.inc:205
+msgid "Show Feedback button on specific pages"
+msgstr "Отображение feedback-кнопки на заданных страницах"
+
+
+#: exfeedback.module:137
+msgid "Administer ExFeedback settings"
+msgstr "Доступ к настройкам ExFeedback"
+
+#: exfeedback.module:140
+msgid "Show ExFeedback button"
+msgstr "Выводить кнопку ExFeedback для роли"
+
+#: exfeedback.module:252;260;278;284;155
+msgid "Feedback"
+msgstr ""
+
+#: exfeedback.module:253
+msgid "Feedback lets you send us suggestions about our products. We welcome problem reports, feature ideas and general comments."
+msgstr "Обратная связь позволяет Вам отправить нам предложения о наших продуктах. Нам будут очень полезны сообщения об ошибках, предложения,идеи и общие замечания."
+
+#: exfeedback.module:254
+msgid "Start by writing a brief description=>"
+msgstr "Напишите Ваше сообщение =>"
+
+#: exfeedback.module:255
+msgid "Next we'll let you identify areas of the page related to your description."
+msgstr "Далее Вы можете отметить области страницы , связанные с Вашим сообщением."
+
+#: exfeedback.module:256;275
+msgid "Please enter a description."
+msgstr "Пожалуйста, введите описание."
+
+
+#: exfeedback.module:261
+msgid "Click and drag on the page to help us better understand your feedback. You can move this dialog if it's in the way."
+msgstr "Если необходимо, выделите мышью нужные области страницы. Если это окно Вам мешает, перетащите его мышью в другое место."
+
+
+#: exfeedback.module:262
+msgid "Highlight"
+msgstr "Подсветить"
+
+#: exfeedback.module:263
+msgid "Highlight areas relevant to your feedback."
+msgstr "Подсветить область страницы"
+
+#: exfeedback.module:264
+msgid "Black out"
+msgstr "Затемнить"
+
+#: exfeedback.module:265
+msgid "Black out any personal information."
+msgstr "Затемнить область страницы"
+
+#: exfeedback.module:270
+msgid "Feedback"
+msgstr "Обратная связь"
+
+
+#: exfeedback.module:272
+msgid "Screenshot"
+msgstr "Скриншот"
+
+
+#: exfeedback.module:279
+msgid "Thank you for your feedback. We value every piece of feedback we receive."
+msgstr "Спасибо за Ваше сообщение. Для нас очень важна, сообщенная Вами, информация."
+
+#: exfeedback.module:280
+msgid "We cannot respond individually to every one, but we will use your comments as we strive to improve your experience."
+msgstr ""
+
+
+#: exfeedback.module:285
+msgid "Sadly an error occured while sending your feedback. Please try again."
+msgstr "К сожалению, при отправке Вашего сообщения произошла ошибка. Пожалуйста, попробуйте еще раз."
+
+#: exfeedback.module:156
+msgid "Feedback settings"
+msgstr "Настройка Feedback"
+

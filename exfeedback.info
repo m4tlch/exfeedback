@@ -1,0 +1,16 @@
+name = exfeedback
+description = Send feedback with screenshot from any site page
+core = 7.x
+package = Development
+;php = 
+version = 0.1
+dependencies[] = features
+dependencies[] = link
+dependencies[] = entityform
+dependencies[] = image
+dependencies[] = entity
+dependencies[] = exfeedback_feathure
+dependencies[] = views
+
+files[] = views/exfeedback.views_default.inc
+configure = admin/config/development/feedback

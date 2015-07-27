@@ -1,0 +1,399 @@
+<?php
+
+define('EXFEEDBACK_VISIBILITY_NOTLISTED', 0);
+define('EXFEEDBACK_VISIBILITY_LISTED', 1);
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function _exfeedback_admin_settings() {
+  $default = _exfeedback_settings_default();
+  $settings = variable_get('exfeedback_admin_settings', array());
+  foreach ($default as $key => $data) {
+    if (!isset($settings[$key])) {
+      $settings[$key] = array();
+    }
+    $settings[$key]+=$data;
+  }
+  return $settings;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function _exfeedback_admin_settings_save($settings) {
+  variable_set('exfeedback_admin_settings', $settings);
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_page_build(&$page) {
+  if (exfeedback_feedback_is_visible()) {
+
+    $feedback = array(
+      '#markup' => '<!-- exfeedback -->',
+      '#attached' => array(),
+    );
+    $attached = &$feedback['#attached'];
+    $feedback_src_path = drupal_get_path('module', 'exfeedback') . '/feedback';
+
+    global $base_url;
+    $attached['js'][] = $base_url . '/' . $feedback_src_path . '/feedback.js';
+    $attached['js'][] = $base_url . '/' . $feedback_src_path . '/html2canvas.js';
+    //$attached['js'][] = $base_url . '/' . $feedback_src_path . '/sketch.js';
+    $attached['css'][] = $feedback_src_path . '/feedback.css';
+    $attached['js'][] = drupal_get_path('module', 'exfeedback') . '/exfeedback.js';
+
+    $info = _exfeedback_admin_settings();
+    foreach (array_keys($info['feedback']['tpl']) as $step) {
+      if ($output = theme('exfeedback_step_' . $step, $info['strings'][$step])) {
+        $info['feedback']['tpl'][$step] = $output;
+      }
+    }
+    $attached['js'][] = array(
+      'type' => 'setting',
+      'data' => array('exfeedback' => $info['feedback'])
+    );
+    $page['page_bottom']['exfeedback'] = $feedback;
+  }
+}
+
+/**
+ * Preprocess variables for region.tpl.php
+ *
+ * Prepares the values passed to the theme_region function to be passed into a
+ * pluggable template engine. Uses the region name to generate a template file
+ * suggestions. If none are found, the default region.tpl.php is used.
+ *
+ * @see drupal_region_class()
+ * @see region.tpl.php
+ */
+function template_preprocess_exfeedback_step(&$variables) {
+  $info = _exfeedback_admin_settings();
+  foreach (array_keys($info['feedback']['tpl']) as $step) {
+    //$variables['theme_hook_suggestions'][] = 'exfeedback_step__' . $step;
+  }
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_feedback_is_visible() {
+  if (!user_access('show exfeedback')) {
+    return FALSE;
+  }
+
+  $enabled = TRUE;
+  $info = _exfeedback_admin_settings();
+  $visibility = $info['visibility'];
+  if ($visibility['visibility'] == EXFEEDBACK_VISIBILITY_LISTED && empty($visibility['pages'])) {
+    $enabled = FALSE;
+  }
+
+  if ($visibility['pages']) {
+    $pages = drupal_strtolower($visibility['pages']);
+    // Convert the Drupal path to lowercase
+    $path = drupal_strtolower(drupal_get_path_alias($_GET['q']));
+    // Compare the lowercase internal and lowercase path alias (if any).
+    $page_match = drupal_match_path($path, $pages);
+    if ($path != $_GET['q']) {
+      $page_match = $page_match || drupal_match_path($_GET['q'], $pages);
+    }
+
+    $page_match = !($visibility['visibility'] xor $page_match);
+  } else {
+    $page_match = FALSE;
+  }
+  return $page_match;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function exfeedback_permission() {
+  return array(
+    'administer exfeedback' => array(
+      'title' => t('Administer ExFeedback settings'),
+    ),
+    'show exfeedback' => array(
+      'title' => t('Show ExFeedback button'),
+    ),
+  );
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_menu() {
+  $items['admin/config/development/feedback'] = array(
+    'title' => 'Feedback',
+    'description' => 'Feedback settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('exfeedback_admin_form'),
+    'access arguments' => array('administer exfeedback'),
+    'file' => 'exfeedback.admin.inc'
+  );
+  $items['exfeedback/save'] = array(
+    'title' => 'modi',
+    'page callback' => 'exfeedback_save',
+    //'page arguments' => array(2, 1),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_theme() {
+  $path = drupal_get_path('module', 'exfeedback') . '/templates';
+  $info = _exfeedback_admin_settings();
+  foreach (array_keys($info['feedback']['tpl']) as $step) {
+    $theme['exfeedback_step_' . $step] = array(
+      'path' => $path,
+      'template' => 'exfeedback-step-' . $step,
+    );
+  }
+  //$theme['exfeedback_highlighter']=array('variables'=>array('strings'=>NULL,'classes'=>NULL),'path'=>$path);
+  //$theme['exfeedback_overview']=array('variables'=>array('strings'=>NULL,'classes'=>NULL),'path'=>$path);
+  //$theme['exfeedback_submituccess']=array('variables'=>array('strings'=>NULL,'classes'=>NULL),'path'=>$path);
+  //$theme['exfeedback_submitError']=array('variables'=>array('strings'=>NULL,'classes'=>NULL),'path'=>$path);
+  return $theme;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_exfeedback_step_preprocess(&$variables) {
+  
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function _exfeedback_settings_default() {
+  $settings['feedback'] = array(
+    'ajaxURL' => 'exfeedback/save',
+    'html2canvasURL' => 'sites/all/modules/custom/exfeedback/feedback/html2canvas.js',
+    'postBrowserInfo' => true,
+    'postHTML' => true,
+    'postURL' => true,
+    'proxy' => undefined,
+    'letterRendering' => false,
+    'initButtonText' => 'Send feedback',
+    'strokeStyle' => 'red',
+    'shadowColor' => 'black',
+    'shadowOffsetX' => 1,
+    'shadowOffsetY' => 1,
+    'shadowBlur' => 10,
+    'lineJoin' => 'bevel',
+    'lineWidth' => 3,
+    'feedbackButton' => '.feedback-btn',
+    'showDescriptionModal' => true,
+    'isDraggable' => true,
+    'tpl' => array(
+      'description' => '<div id="feedback-welcome"><div class="feedback-logo">Feedback</div><p>Feedback lets you send us suggestions about our products. We welcome problem reports, feature ideas and general comments.</p><p>Start by writing a brief description=></p><textarea id="feedback-note-tmp"></textarea><p>Next we\'ll let you identify areas of the page related to your description.</p><button id="feedback-welcome-next" class="feedback-next-btn feedback-btn-gray">Next</button><div id="feedback-welcome-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
+      'highlighter' => '<div id="feedback-highlighter"><div class="feedback-logo">Feedback</div><p>Click and drag on the page to help us better understand your feedback. You can move this dialog if it\'s in the way.</p><button class="feedback-sethighlight feedback-active"><div class="ico"></div><span>Highlight</span></button><label>Highlight areas relevant to your feedback.</label><button class="feedback-setblackout"><div class="ico"></div><span>Black out</span></button><label class="lower">Black out any personal information.</label><div class="feedback-buttons"><button id="feedback-highlighter-next" class="feedback-next-btn feedback-btn-gray">Next</button><button id="feedback-highlighter-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div class="feedback-wizard-close"></div></div>',
+      'overview' => '<div id="feedback-overview"><div class="feedback-logo">Feedback</div><div id="feedback-overview-description"><div id="feedback-overview-description-text"><h3>Description</h3><h3 class="feedback-additional">Additional info</h3><div id="feedback-additional-none"><span>None</span></div><div id="feedback-browser-info"><span>Browser Info</span></div><div id="feedback-page-info"><span>Page Info</span></div><div id="feedback-page-structure"><span>Page Structure</span></div></div></div><div id="feedback-overview-screenshot"><h3>Screenshot</h3></div><div class="feedback-buttons"><button id="feedback-submit" class="feedback-submit-btn feedback-btn-blue">Submit</button><button id="feedback-overview-back" class="feedback-back-btn feedback-btn-gray">Back</button></div><div id="feedback-overview-error">Please enter a description.</div><div class="feedback-wizard-close"></div></div>',
+      'submitSuccess' => '<div id="feedback-submit-success"><div class="feedback-logo">Feedback</div><p>Thank you for your feedback. We value every piece of feedback we receive.</p><p>We cannot respond individually to every one, but we will use your comments as we strive to improve your experience.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>',
+      'submitError' => '<div id="feedback-submit-error"><div class="feedback-logo">Feedback</div><p>Sadly an error occured while sending your feedback. Please try again.</p><button class="feedback-close-btn feedback-btn-blue">OK</button><div class="feedback-wizard-close"></div></div>'
+    ),
+    'screenshotStroke' => true,
+    'highlightElement' => false,
+    'initialBox' => false
+  );
+  $settings['visibility'] = array(
+    'visibility' => EXFEEDBACK_VISIBILITY_NOTLISTED,
+    'pages' => "admin\nadmin/*"
+  );
+  $settings['strings']['description'] = array(
+    'title' => t('Feedback'),
+    'message_1' => t('Feedback lets you send us suggestions about our products. We welcome problem reports, feature ideas and general comments.'),
+    'message_2' => t('Start by writing a brief description=>'),
+    'message_3' => t('Next we\'ll let you identify areas of the page related to your description.'),
+    'message_error' => t('Please enter a description.'),
+    'button_next' => t('Next'),
+  );
+  $settings['strings']['highlighter'] = array(
+    'title' => t('Feedback'),
+    'message_1' => t('Click and drag on the page to help us better understand your feedback. You can move this dialog if it\'s in the way.'),
+    'button_sethighlight' => t('Highlight'),
+    'button_sethighlight_label' => t('Highlight areas relevant to your feedback.'),
+    'button_setblackout' => t('Black out'),
+    'button_setblackout_label' => t('Black out any personal information.'),
+    'button_next' => t('Next'),
+    'button_back' => t('Back'),
+  );
+  $settings['strings']['overview'] = array(
+    'title' => t('Feedback'),
+    'h3_description' => t('Description'),
+    'h3_screenshot' => t('Screenshot'),
+    'button_submit' => t('Submit'),
+    'button_back' => t('Back'),
+    'message_error' => t('Please enter a description.'),
+  );
+  $settings['strings']['submitSuccess'] = array(
+    'title' => t('Feedback'),
+    'message_1' => t('Thank you for your feedback. We value every piece of feedback we receive.'),
+    'message_2' => t('We cannot respond individually to every one, but we will use your comments as we strive to improve your experience.'),
+    'button_close' => t('Ok'),
+  );
+  $settings['strings']['submitError'] = array(
+    'title' => t('Feedback'),
+    'message' => t('Sadly an error occured while sending your feedback. Please try again.'),
+    'button_close' => t('Ok'),
+  );
+  return $settings;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_save() {
+  $response = drupal_json_decode($_POST['feedback']);
+
+  $str = array_keys($response);
+  $n = 0;
+  $entityform = entity_create('entityform', array(
+    'type' => "feedback",
+    'created' => time(),
+    'changed' => time(),
+    'language' => LANGUAGE_NONE,
+    'uid' => 0
+  ));
+
+  $wrapper = entity_metadata_wrapper('entityform', $entityform);
+
+  $brouser_info=array(
+    'value'=>exfeedback_array2html($response['browser']),
+    'format'=>'full_html'
+  );
+  
+  $wrapper->field_exfeedback_browser->set($brouser_info);
+  $wrapper->field_exfeedback_url->set(array('url' => $response['url']));
+  $wrapper->field_exfeedback_html->set($response['html']);
+
+  $wrapper->field_exfeedback_note->set($response['note']);
+
+  $wrapper->save();
+
+  $field_name = 'field_exfeedback_img';
+  $field = field_read_field($field_name);
+  $instance = field_read_instance('entityform', $field_name, 'feedback');
+
+  $destination = file_field_widget_uri($field, $instance);
+
+  list($meta, $image_content) = explode(',', $response['img']);
+  if (isset($destination) && !file_prepare_directory($destination, FILE_CREATE_DIRECTORY)) {
+    watchdog('file', 'The upload directory %directory for the file field !name could not be created or is not accessible. A newly uploaded file could not be saved in this directory as a consequence, and the upload was canceled.', array('%directory' => $destination, '!name' => $element['#field_name']));
+  }
+
+  $img_name = md5($response['url'] . time()) . '.png';
+  $destination.='/' . $img_name;
+
+  if (!$file = file_save_data(base64_decode($image_content), $destination)) {
+    watchdog('file', 'The file save failed. From %from', array('%from' => $response['url']));
+    return FALSE;
+  }
+
+  list($id) = entity_extract_ids('entityform', $wrapper->value());
+
+  $wrapper->{$field_name}->file->set($file);
+  $wrapper->save();
+
+  file_usage_add($file, 'image', 'default_image', $id);
+
+  print drupal_json_encode('OK');
+  exit;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_array2html($array, $empty = 'Info is missing') {
+  $items = array();
+  foreach ($array as $key => $value) {
+    $items[] = "<b>{$key}:</b> <i>{$value}</i>";
+  }
+  return !empty($items) ? theme('item_list', array('items' => $items)) : $empty;
+}
+
+/**
+ *  
+ *
+ * @param 
+ *  
+ * @return 
+ *  
+ */
+function exfeedback_iframe_form($form, &$form_state) {
+  module_load_include('inc', 'entityform', 'entityform.admin');
+  $entityform = entityform_empty_load('ticket');
+  $form+=entityform_edit_form($form, $form_state, $entityform);
+
+  global $base_path;
+  global $base_url;
+  $feedback_src_path = drupal_get_path('module', 'exfeedback') . '/feedback';
+
+  drupal_add_js($base_url . '/' . drupal_get_path('module', 'exfeedback') . '/exfeedback.js');
+
+  drupal_add_js($base_url . '/' . $feedback_src_path . '/feedback.js');
+  drupal_add_css($base_url . '/' . $feedback_src_path . '/feedback.css');
+
+
+
+
+  return $form;
+}
