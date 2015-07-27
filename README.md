@@ -25,12 +25,13 @@ exFeedback
 -------------
 1.Загружаем модуль в папку /sites/all/modules
 2.Загружаем зависимости модуля (если еще не установлены):
- - [features](https://www.drupal.org/project/features)
- - [link](https://www.drupal.org/project/link)
- - [entityform](https://www.drupal.org/project/entityform)
- - [image](https://www.drupal.org/project/image)
- - [entity](https://www.drupal.org/project/entity)
- - [views](https://www.drupal.org/project/views)
+ - [drupal.org/project/features](https://www.drupal.org/project/features)
+ - [drupal.org/project/link](https://www.drupal.org/project/link)
+ - [drupal.org/project/entityform](https://www.drupal.org/project/entityform)
+ - [drupal.org/project/image](https://www.drupal.org/project/image)
+ - [drupal.org/project/entity](https://www.drupal.org/project/entity)
+ - [drupal.org/project/views](https://www.drupal.org/project/views)
+
 3.Модуль "exfeedback_feathure" уже находиться в папке модуля "exFeedback".
 4.Открываем страницу управления модулями вашего сайта ( /admin/modules )
 5.Активируем модуль "exFeedback" и сохраняем изменения.
