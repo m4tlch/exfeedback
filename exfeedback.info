@@ -9,7 +9,7 @@ dependencies[] = link
 dependencies[] = entityform
 dependencies[] = image
 dependencies[] = entity
-dependencies[] = exfeedback_feathure
+dependencies[] = exfeedback_feature
 dependencies[] = views
 
 configure = admin/config/development/feedback
