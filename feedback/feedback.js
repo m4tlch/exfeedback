@@ -44,7 +44,7 @@
 		var _html2canvas = false;
 		if (supportedBrowser) {
 			if(isFeedbackButtonNative) {
-				$('body').append('<button class="feedback-btn feedback-btn-gray">' + settings.initButtonText + '</button>');
+				$('body').append('<button class="feedback-btn feedback-btn-blue">' + settings.initButtonText + '</button>');
 			}
 			$(document).on('click', settings.feedbackButton, function(){
 				if(isFeedbackButtonNative) {
