@@ -3,6 +3,14 @@
 define('EXFEEDBACK_VISIBILITY_NOTLISTED', 0);
 define('EXFEEDBACK_VISIBILITY_LISTED', 1);
 
+
+function exfeedback_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'exfeedback') . '/views',
+  );
+}
+
 /**
  *  
  *

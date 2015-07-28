@@ -12,5 +12,4 @@ dependencies[] = entity
 dependencies[] = exfeedback_feathure
 dependencies[] = views
 
-files[] = views/exfeedback.views_default.inc
 configure = admin/config/development/feedback
