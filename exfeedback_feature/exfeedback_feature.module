@@ -4,4 +4,4 @@
  * Code for the exFeedback feature.
  */
 
-include_once 'exfeedback_feathure.features.inc';
+include_once 'exfeedback_feature.features.inc';

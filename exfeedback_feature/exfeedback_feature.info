@@ -20,4 +20,4 @@ features[field_instance][] = entityform-feedback-field_exfeedback_html
 features[field_instance][] = entityform-feedback-field_exfeedback_img
 features[field_instance][] = entityform-feedback-field_exfeedback_note
 features[field_instance][] = entityform-feedback-field_exfeedback_url
-project path = sites/all/modules/custom/exfeedback/exfeedback_feature
+project path = sites/all/modules/custom/exfeedback

@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * exfeedback_feathure.features.field_base.inc
+ * exfeedback_feature.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function exfeedback_feathure_field_default_field_bases() {
+function exfeedback_feature_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_exfeedback_browser'

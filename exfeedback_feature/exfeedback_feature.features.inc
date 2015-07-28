@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * exfeedback_feathure.features.inc
+ * exfeedback_feature.features.inc
  */
 
 /**
  * Implements hook_default_entityform_type().
  */
-function exfeedback_feathure_default_entityform_type() {
+function exfeedback_feature_default_entityform_type() {
   $items = array();
   $items['feedback'] = entity_import('entityform_type', '{
     "type" : "feedback",
