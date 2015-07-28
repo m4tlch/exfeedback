@@ -359,7 +359,7 @@ function exfeedback_save() {
   file_usage_add($file, 'image', 'default_image', $id);
 
   print drupal_json_encode('OK');
-  exit;
+  drupal_exit();
 }
 
 /**
