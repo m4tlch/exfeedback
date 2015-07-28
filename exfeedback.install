@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Implements hook_install().
+ */
+function exfeedback_install() {
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
 /**
  * Implements hook_uninstall().
  */
