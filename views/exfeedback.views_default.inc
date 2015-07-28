@@ -3,7 +3,7 @@
 /**
  * Implements hook_views_default_views().
  */
-function entityform_views_default_views() {
+function exfeedback_views_default_views() {
   $view = new view();
   $view->name = 'feedback_list';
   $view->description = '';
