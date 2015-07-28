@@ -223,7 +223,7 @@ function exfeedback_exfeedback_step_preprocess(&$variables) {
  */
 function _exfeedback_settings_default() {
   $settings['feedback'] = array(
-    'ajaxURL' => 'exfeedback/save',
+    'ajaxURL' => '/exfeedback/save',
     'html2canvasURL' => 'sites/all/modules/custom/exfeedback/feedback/html2canvas.js',
     'postBrowserInfo' => true,
     'postHTML' => true,
